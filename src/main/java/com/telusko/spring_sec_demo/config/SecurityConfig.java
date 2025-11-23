@@ -19,9 +19,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+    //@Bean
+    //AuthenticationProvider authProvider(){
+    //@Bean
+    //public SecurityFilterChain securityFilterChain(HttpSecurity httpsss) throws Exception {
 
 
 //        Customizer<CsrfConfigurer<HttpSecurity>> custCsrf= new Customizer<CsrfConfigurer<HttpSecurity>>() {
@@ -49,18 +54,12 @@ public class SecurityConfig {
 //        };
        // http.authorizeHttpRequests(custHttp);
    //     return http.build();
-
-        @Autowired
-                private UserDetailsService userDetailsService;
-
-
-        @Bean
-                public AuthenticationProvider authProvider(){
-
+    @Bean
+        public AuthenticationProvider authProvider(){
             DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
-            provider.setUserDetailsPasswordService(userDetailsService);
-            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+            provider.setUserDetailsService(userDetailsService);
+           // provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
             return provider;
         }
-    }
+
 }

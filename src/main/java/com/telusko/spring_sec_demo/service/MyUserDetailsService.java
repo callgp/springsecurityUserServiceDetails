@@ -1,8 +1,10 @@
 package main.java.com.telusko.spring_sec_demo.service;
 
 import com.telusko.spring_sec_demo.dao.UserRepo;
+import com.telusko.spring_sec_demo.model.User;
+import com.telusko.spring_sec_demo.model.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,12 @@ public class MyUserDetailsService implements UserDetailsService {
    private UserRepo repo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.telusko.spring_sec_demo.model.User user = repo.findByUserName(username);
-        if (user==null){
+        User byUserName = repo.findByUserName(username);
+        if (byUserName==null){
             System.out.println("err 404 usersss not found");
             throw new UsernameNotFoundException("usr 404 exc");
 
         }
-        return User;
+        return new UserPrincipal(byUserName);
     }
 }
