@@ -22,11 +22,11 @@ public class UserPrincipal  implements org.springframework.security.core.userdet
 
     @Override
     public String getPassword() {
-        return user.getUsername();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return user.getPassword();
+        return user.getUsername();
     }
 }
