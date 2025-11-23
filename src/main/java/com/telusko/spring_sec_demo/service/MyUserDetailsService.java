@@ -1,4 +1,4 @@
-package main.java.com.telusko.spring_sec_demo.service;
+package com.telusko.spring_sec_demo.service;
 
 import com.telusko.spring_sec_demo.dao.UserRepo;
 import com.telusko.spring_sec_demo.model.User;
@@ -17,7 +17,7 @@ public class MyUserDetailsService implements UserDetailsService {
    private UserRepo repo;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User byUserName = repo.findByUserName(username);
+        User byUserName = repo.findByUsername(username);
         if (byUserName==null){
             System.out.println("err 404 usersss not found");
             throw new UsernameNotFoundException("usr 404 exc");
