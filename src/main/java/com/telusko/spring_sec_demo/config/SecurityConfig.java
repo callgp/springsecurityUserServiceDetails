@@ -58,8 +58,19 @@ public class SecurityConfig {
         public AuthenticationProvider authProvider(){
             DaoAuthenticationProvider provider= new DaoAuthenticationProvider();
             provider.setUserDetailsService(userDetailsService);
-           // provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
             return provider;
         }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+        http.csrf(customizer -> customizer.disable())
+                .authorizeHttpRequests(request -> request.anyRequest().authenticated())
+                .httpBasic(Customizer.withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        return http.build();
+    }
 
 }
